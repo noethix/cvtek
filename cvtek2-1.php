@@ -654,5 +654,17 @@ switch($choice)
 //Fin du programme:
 qu: 
 print PHP_EOL;
-print "Vous quittez le programme". PHP_EOL;
+print "Voulez-vous vraiment quitter le programme ? y/N ";
+$YesNo = readline();
+$YesNo = strtoupper($YesNo);
+    if($YesNo[0] == "Y")
+    {
+        print "Vous quittez le programme". PHP_EOL;
+        goto end;
+    }
+    else
+    {
+        goto a;
+    }
+    end:
 ?>
