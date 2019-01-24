@@ -11,14 +11,32 @@ $Skills=array();
 $informations=array();
 $candidats=csv_to_array('hrdata.csv');
 $compteur= 0;
-$one = "1 - Liste des candidats ";
-$two = "2 - Ajout de candidat ";
-$three = "3 - Modification des informations d'un candidat ";
 $four = "4 - Recherche  ";
-$five = "5 - Quitter ";
 
 
 //FONCTIONS
+
+function removeAccents($str) {
+    $a = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', 'Ā', 'ā', 'Ă', 'ă', 'Ą', 'ą', 'Ć', 'ć', 'Ĉ', 'ĉ', 'Ċ', 'ċ', 'Č', 'č', 'Ď', 'ď', 'Đ', 'đ', 'Ē', 'ē', 'Ĕ', 'ĕ', 'Ė', 'ė', 'Ę', 'ę', 'Ě', 'ě', 'Ĝ', 'ĝ', 'Ğ', 'ğ', 'Ġ', 'ġ', 'Ģ', 'ģ', 'Ĥ', 'ĥ', 'Ħ', 'ħ', 'Ĩ', 'ĩ', 'Ī', 'ī', 'Ĭ', 'ĭ', 'Į', 'į', 'İ', 'ı', 'Ĳ', 'ĳ', 'Ĵ', 'ĵ', 'Ķ', 'ķ', 'Ĺ', 'ĺ', 'Ļ', 'ļ', 'Ľ', 'ľ', 'Ŀ', 'ŀ', 'Ł', 'ł', 'Ń', 'ń', 'Ņ', 'ņ', 'Ň', 'ň', 'ŉ', 'Ō', 'ō', 'Ŏ', 'ŏ', 'Ő', 'ő', 'Œ', 'œ', 'Ŕ', 'ŕ', 'Ŗ', 'ŗ', 'Ř', 'ř', 'Ś', 'ś', 'Ŝ', 'ŝ', 'Ş', 'ş', 'Š', 'š', 'Ţ', 'ţ', 'Ť', 'ť', 'Ŧ', 'ŧ', 'Ũ', 'ũ', 'Ū', 'ū', 'Ŭ', 'ŭ', 'Ů', 'ů', 'Ű', 'ű', 'Ų', 'ų', 'Ŵ', 'ŵ', 'Ŷ', 'ŷ', 'Ÿ', 'Ź', 'ź', 'Ż', 'ż', 'Ž', 'ž', 'ſ', 'ƒ', 'Ơ', 'ơ', 'Ư', 'ư', 'Ǎ', 'ǎ', 'Ǐ', 'ǐ', 'Ǒ', 'ǒ', 'Ǔ', 'ǔ', 'Ǖ', 'ǖ', 'Ǘ', 'ǘ', 'Ǚ', 'ǚ', 'Ǜ', 'ǜ', 'Ǻ', 'ǻ', 'Ǽ', 'ǽ', 'Ǿ', 'ǿ', 'Ά', 'ά', 'Έ', 'έ', 'Ό', 'ό', 'Ώ', 'ώ', 'Ί', 'ί', 'ϊ', 'ΐ', 'Ύ', 'ύ', 'ϋ', 'ΰ', 'Ή', 'ή');
+    $b = array('A', 'A', 'A', 'A', 'A', 'A', 'AE', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'D', 'N', 'O', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 's', 'a', 'a', 'a', 'a', 'a', 'a', 'ae', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'n', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'D', 'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g', 'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'IJ', 'ij', 'J', 'j', 'K', 'k', 'L', 'l', 'L', 'l', 'L', 'l', 'L', 'l', 'l', 'l', 'N', 'n', 'N', 'n', 'N', 'n', 'n', 'O', 'o', 'O', 'o', 'O', 'o', 'OE', 'oe', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', 'S', 's', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W', 'w', 'Y', 'y', 'Y', 'Z', 'z', 'Z', 'z', 'Z', 'z', 's', 'f', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'A', 'a', 'AE', 'ae', 'O', 'o', 'Α', 'α', 'Ε', 'ε', 'Ο', 'ο', 'Ω', 'ω', 'Ι', 'ι', 'ι', 'ι', 'Υ', 'υ', 'υ', 'υ', 'Η', 'η');
+    return str_replace($a, $b, $str);
+}
+//--FONCTION QUI NETTOIE LA SAISIE
+function cleanInput($str) {
+	//si l'utilisateur par mégarde met des espaces avant ou après le mot
+	
+	$str=trim($str);
+	
+	//si l'utilisateur saisit des caractères accentués, on remplace ces caractères par les mêmes caractères mais sans accentués
+	$str=removeAccents($str);
+	
+	//si l'utilisateur saisit des majuscules, on met la saisie en minuscules
+	$str=strtoupper($str);
+	
+	return $str;
+}
+
+
 function affichage($candidats)
 {
     print PHP_EOL;
@@ -119,12 +137,13 @@ a:
 print PHP_EOL;
 print("Menu, ou voulez vous aller? "). PHP_EOL;
 print PHP_EOL;
-print $one. PHP_EOL;
-print $two. PHP_EOL;
-print $three. PHP_EOL;
-print $four. PHP_EOL;
-print $five. PHP_EOL;
+print "1 - Liste des candidats ". PHP_EOL;
+print "2 - Ajout de candidat ". PHP_EOL;
+print "3 - Modification des informations d'un candidat ". PHP_EOL;
+print "4 - Recherche  ". PHP_EOL;
+print "5 - Quitter ". PHP_EOL;
 $menu=readline("Votre choix: ");
+print  PHP_EOL;
 switch ($menu) {
     case "1":
     goto li;
@@ -141,123 +160,99 @@ switch ($menu) {
     print PHP_EOL;
     goto a;
 }
-// Candidates list's menu
-li:
-print "Que voulez vous faire avec la liste des candidats?".PHP_EOL;
-print PHP_EOL;
-print "1 - Afficher la liste des candidats". PHP_EOL;
-print "2 - Trier par nom (ascendant)". PHP_EOL;
-print "3 - Trier par nom (descendant)". PHP_EOL;
-print "4 - Trier par prenom (ascendant)". PHP_EOL;
-print "5 - Trier par prenom (descendant)". PHP_EOL;
-print "6 - Trier par ville (ascendant)". PHP_EOL;
-print "7 - Trier par ville (descendant)". PHP_EOL;
-print "8 - Trier par age (ascendant)". PHP_EOL;
-print "9 - Trier par age (descendant)". PHP_EOL;
-print "10 - Trier par profil (ascendant)". PHP_EOL;
-print "11 - Trier par profil (descendant)". PHP_EOL;
-print "12 - RETOUR AU MENU PRINCIPAL". PHP_EOL;
-$choices= readline("Entrer l'option du menu: ");
-switch ($choices) {
-    case "1":
-    goto nomA;
-    case "2":
-    goto nomA;
-    case "3":
-    goto nomD;
-    case "4":
-    goto prenomA;
-    case "5":
-    goto prenomD;
-    case "6":
-    goto villeA;
-    case "7":
-    goto villeD;
-    case "8":
-    goto ageA;
-    case "9":
-    goto ageD;
-    case "10":
-    goto profileA;
-    case "11":
-    goto profileD;
-    case "12":
-    goto retour;
-    default:
-    print "Que voulez vous faire?".PHP_EOL;
-    print PHP_EOL;
-    goto li;
-}
-liste:
-//Liste de candidats (apport fichier CSV)
-affichage($candidats);
-goto li;
 
-nomA:
-//Sort Last Names A->Z
+
+// Candidates list's menu et affichage de la liste
+
+li:
+print "Liste des candidats: ". PHP_EOL;
+print PHP_EOL;
+
 foreach($candidats as $key => $informations) 
 {
-    if ($informations["LastName"] == $nul) // put the input with NULL at the bottom of the list
-    {
-        $informations["LastName"] = " ";
-    }
     $LastNamesA[$key] = $informations["LastName"];
 }
 array_multisort($LastNamesA, SORT_ASC, $candidats);
 affichage($candidats);
-goto li;
+
+tri:
+print "De quelle facon voulez vous trier la liste?". PHP_EOL;
+print PHP_EOL;
+print PHP_EOL;
+print "1 - Trier par nom (descendant)". PHP_EOL;
+print "2 - Trier par ville (ascendant)". PHP_EOL;
+print "3 - Trier par ville (descendant)". PHP_EOL;
+print "4 - Trier par age (ascendant)". PHP_EOL;
+print "5 - Trier par age (descendant)". PHP_EOL;
+print "6 - Trier par profil (ascendant)". PHP_EOL;
+print "7 - Trier par profil (descendant)". PHP_EOL;
+print "8 - RETOUR AU MENU PRINCIPAL". PHP_EOL;
+print PHP_EOL;
+$choices= readline("Votre choix: ");
+print PHP_EOL;
+switch ($choices) {
+
+    case "1":
+    goto nomD;
+
+    case "2":
+    goto villeA;
+
+    case "3":
+    goto villeD;
+
+    case "4":
+    goto ageA;
+
+    case "5":
+    goto ageD;
+
+    case "6":
+    goto profileA;
+
+    case "7":
+    goto profileD;
+
+    case "8":
+    goto retour;
+
+    default:
+    print "Votre choix: ".PHP_EOL;
+    print PHP_EOL;
+    goto li;
+}
+
+
 nomD:
 //Sort Last Names Z->A
 foreach($candidats as $key => $informations) 
 {
-    if ($informations["LastName"] == $nul) 
+   /* if ($informations["LastName"] == $nul) 
     {
         $informations["LastName"] = " ";
-    }
+    }*/
     $LastNamesD[$key] = $informations["LastName"];
 }
 array_multisort($LastNamesD, SORT_DESC, $candidats);
 affichage($candidats);
-goto li;
-prenomA:
-//Sort First Names A->Z
-foreach($candidats as $key => $informations) 
-{
-    if ($informations["FirstName"] == $nul) 
-    {
-        $informations["FirstName"] = " ";
-    }
-    $FirstNamesA[$key] = $informations["FirstName"];
-}
-array_multisort($FirstNamesA, SORT_ASC, $candidats);
-affichage($candidats);
-goto li;
-prenomD:
-//Sort First Names Z->A
-foreach($candidats as $key => $informations) 
-{
-    if ($informations["FirstName"] == $nul) 
-    {
-        $informations["FirstName"] = " ";
-    }
-    $FirstNamesD[$key] = $informations["FirstName"];
-}
-array_multisort($FirstNamesD, SORT_DESC, $candidats);
-affichage($candidats);
-goto li;
+goto tri;
+
+
 villeA:
 //Sort Town A->Z
 foreach($candidats as $key => $informations) 
 { 
     if ($informations["Town"] == $nul) 
     {
-        $informations["Town"] = " ";
+        $informations["Town"] = "zzz";
     }
     $TownsA[$key] = $informations["Town"];
+    
 }
 array_multisort($TownsA, SORT_ASC, $candidats);
 affichage($candidats);
-goto li;
+goto tri;
+
 villeD:
 //Sort Town Z->A
 foreach($candidats as $key => $informations) 
@@ -270,7 +265,8 @@ foreach($candidats as $key => $informations)
 }
 array_multisort($TownsD, SORT_DESC, $candidats);
 affichage($candidats);
-goto li;
+goto tri;
+
 ageA:
 //Sort by ascending age
 foreach($candidats as $key => $informations) 
@@ -279,7 +275,8 @@ foreach($candidats as $key => $informations)
 }
 array_multisort($agesA, SORT_ASC, $candidats);
 affichage($candidats);
-goto li;
+goto tri;
+
 ageD:
 //Sort by descending age
 foreach($candidats as $key => $informations) 
@@ -288,35 +285,33 @@ foreach($candidats as $key => $informations)
 }
 array_multisort($agesD, SORT_DESC, $candidats);
 affichage($candidats);
-goto li;
+goto tri;
+
 profileA:
 //Sort by ascending profile
 foreach($candidats as $key => $informations) 
 {
-    if ($informations["Profile"] == $nul) 
-    {
-        $informations["Profile"] = " ";
-    }
     $profileA[$key] = $informations["Profile"];
 }
 array_multisort($profileA, SORT_ASC, $candidats);
 affichage($candidats);
-goto li;
+goto tri;
+
 profileD:
 //Sort by descending profile
 foreach($candidats as $key => $informations) 
 {
-    if ($informations["Profile"] == $nul) 
-    {
-        $informations["Profile"] = " ";
-    }
+    
     $profileD[$key] = $informations["Profile"];
 }
 array_multisort($profileD, SORT_DESC, $candidats);
 affichage($candidats);
-goto li;
+goto tri;
+
 retour:
 goto a;
+
+
 //Ajout d'un nouveau candidat:
 ad:
 print PHP_EOL;
@@ -416,6 +411,8 @@ else
 {
 	goto a;
 }
+
+
 //Modification du fichier candidat:
 mo:
 print PHP_EOL;
@@ -472,9 +469,6 @@ else
     print("Entrez la nouvelle valeur");
     $candidats[$ID][$Askey] = readline();
 }
-
-
-
 
 goto a;
 
@@ -649,8 +643,23 @@ switch($choice)
     }   
     goto se;
 }
+
+
 //Fin du programme:
 qu: 
 print PHP_EOL;
-print "Vous quittez le programme". PHP_EOL;
+print "Voulez-vous vraiment quitter le programme ? y/N ";
+$YesNo = readline();
+$YesNo = strtoupper($YesNo);
+    if($YesNo[0] == "Y")
+    {
+        print "Vous quittez le programme". PHP_EOL;
+        goto end;
+    }
+    else
+    {
+        goto a;
+    }
+    end:
+?>
 ?>
